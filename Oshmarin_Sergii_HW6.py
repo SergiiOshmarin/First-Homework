@@ -1,8 +1,9 @@
-#def normalize(some_path):
-'''Importing os,shutil library'''
+'''Importing os,shutil,sys library'''
+import sys
 import os
 import shutil
- ''' Creating function "normalize"
+
+''' Creating function "normalize"
 It will check if any file name has Kyrylic letters or not latin letters or numbers.
 If Kyrylic letters found, they will be changed to Latin. If others exept Latin letters or numbers,
 Will be changed to "_"
@@ -66,10 +67,24 @@ def sorting(path):
             else:
                 os.renames(filename.path,os.path.join(maindir,oth,os.path.basename(filename.path)))
         elif filename.is_dir():
-            if filename.namе not in (imag, docum, aud, vid, arch, oth): sorting(filename.path)
+            if filename.name not in (imag, docum, aud, vid, arch, oth):
+                sorting(filename.path)
         else:
             os.renames(filename.path,os.path.join(maindir,oth,format_name+file_extension))
     for dirpath, dirnames, filenames in os.walk(path, topdown=False):
         if not dirnames and not filenames:
             os.rmdir(dirpath)
-    return print("Function 'Sorting' Completed")
+'''Taking system arguments and chechick if they can be used'''
+
+def main():
+    if len(sys.argv) < 2:
+        print('Enter path to folder which should be cleaned')
+        exit()
+    way = sys.argv[1]
+    if not (os.path.exists(way) and os.path.isdir(way)):
+        print('Path incorrect. Try again')
+        exit()
+    sorting(way)
+
+if __name__ == '__main__':
+    exit(main())
