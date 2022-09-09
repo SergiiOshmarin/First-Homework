@@ -1,12 +1,12 @@
 #def normalize(some_path):
-# Importing os,shutil library
+'''Importing os,shutil library'''
 import os
 import shutil
-# Creating function "normalize"
-# It will check if any file name has Kyrylic letters or not latin letters or numbers.
-# If Kyrylic letters found, they will be changed to Latin. If others exept Latin letters or numbers,
-# Will be changed to "_"
-# Function taking as string and return formatted string, which will be used later in other function.
+ ''' Creating function "normalize"
+It will check if any file name has Kyrylic letters or not latin letters or numbers.
+If Kyrylic letters found, they will be changed to Latin. If others exept Latin letters or numbers,
+Will be changed to "_"
+Function taking as string and return formatted string, which will be used later in other function.'''
 def normalize(string):
     CYRILLIC_SYMBOLS = "абвгдеёжзийклмнопрстуфхцчшщъыьэюяєіїґ"
     TRANSLATION = ("a", "b", "v", "g", "d", "e", "e", "j", "z", "i", "j", "k", "l", "m", "n", "o", "p", "r", "s", "t", "u",
@@ -31,14 +31,15 @@ def normalize(string):
     new_string="".join(lst)
     return new_string
 
-# Creating function "sorting", which will take path to the folder which we are going to check.
-# With "for" we will path through all files and folders inside "path", and check if is it folder or file.
-# For folder we will check:
-# If it is empty we will delete it.
-# If in folder there are other items function will repeat itselve,
-# Except if folder name is not one of which we are creating .
-# For files, we will segregate them by folders and rename with "normalize" function.
-# Function taking as parameter string Path, and when completed print out that function is completed.
+'''Creating function "sorting", which will take path to the folder which we are going to check.
+With "for" we will path through all files and folders inside "path", and check if is it folder or file.
+For folder we will check:
+If it is empty we will delete it.
+If in folder there are other items function will repeat itselve,
+Except if folder name is not one of which we are creating .
+For files, we will segregate them by folders and rename with "normalize" function.
+Function taking as parameter string Path, and when completed print out that function is completed.'''
+
 def sorting(path):
     imag="images"
     docum="documents"
@@ -65,10 +66,7 @@ def sorting(path):
             else:
                 os.renames(filename.path,os.path.join(maindir,oth,os.path.basename(filename.path)))
         elif filename.is_dir():
-            if filename.name in (imag,docum,aud,vid,arch,oth):
-                pass
-            else:
-                sorting(filename.path)
+            if filename.namе not in (imag, docum, aud, vid, arch, oth): sorting(filename.path)
         else:
             os.renames(filename.path,os.path.join(maindir,oth,format_name+file_extension))
     for dirpath, dirnames, filenames in os.walk(path, topdown=False):
